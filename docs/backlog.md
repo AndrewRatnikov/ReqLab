@@ -47,8 +47,8 @@ Goal: a running Vue 3 + TS + Vite app with the tooling the rest of the work depe
 
 ### 0.6 — Theme baseline (NFR-4)
 
-- [ ] `prefers-color-scheme` media query driving CSS variables (background/text/border colors)
-- [ ] No toggle yet — OS-driven only
+- [x] `prefers-color-scheme` media query driving CSS variables (background/text/border colors)
+- [x] No toggle yet — OS-driven only
 
 **Exit criteria:** `npm run dev` shows an empty two-pane layout that respects OS theme; lint/type-check are clean.
 

@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="flex h-screen flex-col">
+  <div class="bg-bg text-text-base flex h-screen flex-col">
     <!-- CORS banner slot (Option 4) -->
     <div id="cors-banner-slot"></div>
 

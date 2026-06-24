@@ -1,1 +1,24 @@
-/* Global styles and theme CSS variables go here */
+:root {
+  --bg: #ffffff;
+  --surface: #f9fafb;
+  --text-base: #111827;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #030712;
+    --surface: #111827;
+    --text-base: #f9fafb;
+    --text-muted: #9ca3af;
+    --border: #374151;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--bg);
+  color: var(--text-base);
+}
