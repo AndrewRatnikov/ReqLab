@@ -2,7 +2,10 @@
 </script>
 
 <template>
-  <div>ReqLab</div>
+  <div>
+    <p>ReqLab</p>
+    <Button label="Smoke test" />
+  </div>
 </template>
 
 <style lang="scss" scoped>

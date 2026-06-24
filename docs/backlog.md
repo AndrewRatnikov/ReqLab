@@ -28,10 +28,10 @@ Goal: a running Vue 3 + TS + Vite app with the tooling the rest of the work depe
 
 ### 0.3 — Component library install (PrimeVue, Unstyled mode)
 
-- [ ] Install `primevue` (+ `primeicons` if icons needed for Option 4's info icon)
-- [ ] Configure in Unstyled mode (no default themed CSS — Tailwind drives all styling)
-- [ ] Register only the primitives needed: `Select`/`Dropdown`, `Button`, `Dialog`, `Tabs`/`TabView`, `InputText`, `Textarea`
-- [ ] Smoke-test one primitive (e.g. a Button) renders unstyled-but-functional
+- [x] Install `primevue` (+ `primeicons` if icons needed for Option 4's info icon)
+- [x] Configure in Unstyled mode (no default themed CSS — Tailwind drives all styling)
+- [x] Register only the primitives needed: `Select`/`Dropdown`, `Button`, `Dialog`, `Tabs`/`TabView`, `InputText`, `Textarea`
+- [x] Smoke-test one primitive (e.g. a Button) renders unstyled-but-functional
 
 ### 0.4 — Lint & type-check tooling
 
