@@ -35,9 +35,9 @@ Goal: a running Vue 3 + TS + Vite app with the tooling the rest of the work depe
 
 ### 0.4 — Lint & type-check tooling
 
-- [ ] ESLint config (`@vue/eslint-config-typescript` or equivalent) + Prettier if desired
-- [ ] Wire `npm run lint` and `npm run type-check` scripts
-- [ ] Confirm both pass on the scaffold with zero errors
+- [x] ESLint config (`@vue/eslint-config-typescript` or equivalent) + Prettier
+- [x] Wire `npm run lint` and `npm run type-check` scripts
+- [x] Confirm both pass on the scaffold with zero errors
 
 ### 0.5 — Base layout shell
 
