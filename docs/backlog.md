@@ -16,9 +16,9 @@ Goal: a running Vue 3 + TS + Vite app with the tooling the rest of the work depe
 
 ### 0.1 — Vite + Vue 3 + TypeScript init
 
-- [ ] `npm create vite@latest` with `vue-ts` template
-- [ ] Verify `<script setup lang="ts">` works in a placeholder `App.vue`
-- [ ] Commit baseline `package.json`, `tsconfig.json`, `vite.config.ts`
+- [x] `npm create vite@latest` with `vue-ts` template
+- [x] Verify `<script setup lang="ts">` works in a placeholder `App.vue`
+- [x] Commit baseline `package.json`, `tsconfig.json`, `vite.config.ts`
 
 ### 0.2 — Tailwind CSS setup
 
