@@ -41,9 +41,9 @@ Goal: a running Vue 3 + TS + Vite app with the tooling the rest of the work depe
 
 ### 0.5 — Base layout shell
 
-- [ ] `App.vue` with two-region split (request panel left/top, response panel right/bottom)
-- [ ] CSS grid/flex breakpoint: side-by-side on `lg+`, stacked below
-- [ ] Reserve a slot at the top for the future CORS banner (Option 4)
+- [x] `App.vue` with two-region split (request panel left/top, response panel right/bottom)
+- [x] CSS grid/flex breakpoint: side-by-side on `lg+`, stacked below
+- [x] Reserve a slot at the top for the future CORS banner (Option 4)
 
 ### 0.6 — Theme baseline (NFR-4)
 
