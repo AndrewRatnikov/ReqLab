@@ -22,9 +22,9 @@ Goal: a running Vue 3 + TS + Vite app with the tooling the rest of the work depe
 
 ### 0.2 — Tailwind CSS setup
 
-- [ ] Install Tailwind, PostCSS, Autoprefixer
-- [ ] `tailwind.config.ts` with content globs for `src/**/*.vue`
-- [ ] Import Tailwind layers in `src/assets/styles/main.scss`
+- [x] Install Tailwind, PostCSS, Autoprefixer (v4: `tailwindcss` + `@tailwindcss/vite`; no separate PostCSS/Autoprefixer needed)
+- [x] `tailwind.config.ts` with content globs for `src/**/*.vue` (v4: config-in-CSS, no config file; Vite plugin auto-detects content)
+- [x] Import Tailwind layers in `src/assets/styles/main.scss`
 
 ### 0.3 — Component library install (PrimeVue, Unstyled mode)
 
