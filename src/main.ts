@@ -10,6 +10,7 @@ import TabPanels from 'primevue/tabpanels'
 import TabPanel from 'primevue/tabpanel'
 import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
+import './assets/styles/tailwind.css'
 import './assets/styles/main.scss'
 import App from './App.vue'
 
