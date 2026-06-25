@@ -71,9 +71,9 @@ Goal: the fetch/loading/error/latency engine, with zero UI coupling.
 
 ### 1.3 — `useFetchClient` reactive state
 
-- [ ] `method`, `url`, `headers` (array of `{key, value}`), `body` refs
-- [ ] `loading`, `response`, `error`, `latencyMs` refs
-- [ ] Empty-header-row filtering before building the request (FR-2.1)
+- [x] `method`, `url`, `headers` (array of `{key, value}`), `body` refs
+- [x] `loading`, `response`, `error`, `latencyMs` refs
+- [x] Empty-header-row filtering before building the request (FR-2.1)
 
 ### 1.4 — `send()` core
 
