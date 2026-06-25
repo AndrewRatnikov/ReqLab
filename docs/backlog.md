@@ -82,8 +82,8 @@ Goal: the fetch/loading/error/latency engine, with zero UI coupling.
 
 ### 1.5 — Timeout & cancel
 
-- [ ] `AbortController` wired to `send()`; 30s auto-abort → `timeout` error (FR-4.5)
-- [ ] Manual `cancel()` method exposed for the future Send/Cancel button (FR-1.3)
+- [x] `AbortController` wired to `send()`; 30s auto-abort → `timeout` error (FR-4.5)
+- [x] Manual `cancel()` method exposed for the future Send/Cancel button (FR-1.3)
 
 ### 1.6 — Error classification
 

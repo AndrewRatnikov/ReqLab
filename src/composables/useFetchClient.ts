@@ -16,7 +16,17 @@ export function useFetchClient() {
     headers.value.filter((h) => h.key.trim() !== ''),
   )
 
+  let abortController: AbortController | null = null
+
+  function cancel() {
+    abortController?.abort()
+  }
+
   async function send() {
+    abortController?.abort()
+    abortController = new AbortController()
+    const timeoutId = setTimeout(() => abortController!.abort('timeout'), 30_000)
+
     loading.value = true
     response.value = null
     error.value = null
@@ -35,6 +45,7 @@ export function useFetchClient() {
         method: method.value,
         headers: requestHeaders,
         ...(hasBody && body.value ? { body: body.value } : {}),
+        signal: abortController.signal,
       })
 
       const elapsed = performance.now() - start
@@ -54,6 +65,7 @@ export function useFetchClient() {
       // error classification handled in 1.6 — rethrow for now
       throw err
     } finally {
+      clearTimeout(timeoutId)
       loading.value = false
     }
   }
@@ -69,5 +81,6 @@ export function useFetchClient() {
     latencyMs,
     activeHeaders,
     send,
+    cancel,
   }
 }
