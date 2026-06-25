@@ -66,8 +66,8 @@ Goal: the fetch/loading/error/latency engine, with zero UI coupling.
 
 ### 1.2 — Validation utils
 
-- [ ] `src/utils/validateUrl.ts` — must start with `http://`/`https://` (FR-4.3)
-- [ ] `src/utils/validateJson.ts` — `JSON.parse` guard returning ok/error (FR-4.4)
+- [x] `src/utils/validateUrl.ts` — must start with `http://`/`https://` (FR-4.3)
+- [x] `src/utils/validateJson.ts` — `JSON.parse` guard returning ok/error (FR-4.4)
 
 ### 1.3 — `useFetchClient` reactive state
 
