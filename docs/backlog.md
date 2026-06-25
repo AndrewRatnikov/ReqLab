@@ -77,8 +77,8 @@ Goal: the fetch/loading/error/latency engine, with zero UI coupling.
 
 ### 1.4 — `send()` core
 
-- [ ] Builds `fetch` call from current state, strips body only for `GET` (body allowed for `DELETE`/`POST`/`PUT`/`PATCH`), starts latency timer (`performance.now()`)
-- [ ] Sets `loading = true` / resets `error`/`response` on dispatch
+- [x] Builds `fetch` call from current state, strips body only for `GET` (body allowed for `DELETE`/`POST`/`PUT`/`PATCH`), starts latency timer (`performance.now()`)
+- [x] Sets `loading = true` / resets `error`/`response` on dispatch
 
 ### 1.5 — Timeout & cancel
 
