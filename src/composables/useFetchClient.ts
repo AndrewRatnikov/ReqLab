@@ -1,6 +1,31 @@
 import { ref, computed } from 'vue'
 import type { HttpMethod, HeaderEntry, ResponseResult, ClientError } from '@/types/http'
 
+// Browsers surface both CORS blocks and genuine network failures as TypeError
+// ("Failed to fetch") with no reliable way to distinguish them. We classify
+// TypeError as `cors` since that is the dominant failure mode for a browser
+// HTTP client; a real offline scenario will show the same message.
+function classifyError(err: unknown): ClientError | null {
+  // abort('timeout') rejects with the reason string directly, not a DOMException
+  if (err === 'timeout') {
+    return { kind: 'timeout', message: 'Request timed out after 30 seconds.' }
+  }
+
+  // abort() with no reason rejects with a DOMException named AbortError
+  if (err instanceof DOMException && err.name === 'AbortError') {
+    return null // manual cancel — not an error condition
+  }
+
+  if (err instanceof TypeError) {
+    return { kind: 'cors', message: err.message }
+  }
+
+  return {
+    kind: 'network',
+    message: err instanceof Error ? err.message : 'An unexpected error occurred.',
+  }
+}
+
 export function useFetchClient() {
   const method = ref<HttpMethod>('GET')
   const url = ref('')
@@ -12,9 +37,7 @@ export function useFetchClient() {
   const error = ref<ClientError | null>(null)
   const latencyMs = ref<number | null>(null)
 
-  const activeHeaders = computed(() =>
-    headers.value.filter((h) => h.key.trim() !== ''),
-  )
+  const activeHeaders = computed(() => headers.value.filter((h) => h.key.trim() !== ''))
 
   let abortController: AbortController | null = null
 
@@ -62,8 +85,7 @@ export function useFetchClient() {
       latencyMs.value = response.value.latencyMs
     } catch (err) {
       latencyMs.value = Math.round(performance.now() - start)
-      // error classification handled in 1.6 — rethrow for now
-      throw err
+      error.value = classifyError(err)
     } finally {
       clearTimeout(timeoutId)
       loading.value = false

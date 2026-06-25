@@ -87,8 +87,8 @@ Goal: the fetch/loading/error/latency engine, with zero UI coupling.
 
 ### 1.6 — Error classification
 
-- [ ] Map fetch rejection reasons to `network` vs `cors` vs `timeout` vs generic (FR-4.1, FR-4.2, FR-4.5)
-- [ ] Note: browsers don't expose a distinct "CORS" error — classify via heuristic (TypeError with opaque response / no status) and document the limitation
+- [x] Map fetch rejection reasons to `network` vs `cors` vs `timeout` vs generic (FR-4.1, FR-4.2, FR-4.5)
+- [x] Note: browsers don't expose a distinct "CORS" error — classify via heuristic (TypeError with opaque response / no status) and document the limitation
 
 ### 1.7 — Manual verification harness
 
