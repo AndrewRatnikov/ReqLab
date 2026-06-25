@@ -62,7 +62,7 @@ Goal: the fetch/loading/error/latency engine, with zero UI coupling.
 
 ### 1.1 — Shared types
 
-- [ ] `src/types/http.ts`: `HttpMethod`, `HeaderEntry`, `RequestConfig`, `ResponseResult`, `ClientError` (discriminated union: `network | cors | timeout | invalid-url | invalid-json`)
+- [x] `src/types/http.ts`: `HttpMethod`, `HeaderEntry`, `RequestConfig`, `ResponseResult`, `ClientError` (discriminated union: `network | cors | timeout | invalid-url | invalid-json`)
 
 ### 1.2 — Validation utils
 
