@@ -1,18 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DevHarness from '@/components/DevHarness.vue'
+</script>
 
 <template>
   <div class="bg-bg text-text-base flex h-screen flex-col">
     <!-- CORS banner slot (Option 4) -->
     <div id="cors-banner-slot"></div>
 
-    <main class="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-2">
-      <section class="border-border overflow-auto border-b lg:border-b-0 lg:border-r">
-        <!-- RequestPanel (Option 2) -->
-      </section>
-
-      <section class="overflow-auto">
-        <!-- ResponsePanel (Option 3) -->
-      </section>
+    <main class="min-h-0 flex-1 overflow-auto">
+      <!-- TODO Option 2/3: restore two-column grid, remove DevHarness -->
+      <DevHarness />
     </main>
   </div>
 </template>

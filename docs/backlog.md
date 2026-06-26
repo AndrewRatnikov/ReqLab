@@ -92,7 +92,7 @@ Goal: the fetch/loading/error/latency engine, with zero UI coupling.
 
 ### 1.7 — Manual verification harness
 
-- [ ] Temporary scratch component or `console.log` driver (deleted before Option 2 lands) hitting a real public API to confirm all paths fire correctly
+- [x] Temporary scratch component or `console.log` driver (deleted before Option 2 lands) hitting a real public API to confirm all paths fire correctly
 
 **Exit criteria:** composable can hit a real endpoint, return status/body/latency, and surface each error type distinctly, independent of any component.
 
