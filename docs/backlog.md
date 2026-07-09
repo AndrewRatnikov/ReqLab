@@ -104,8 +104,8 @@ Goal: user can configure and fire a request.
 
 ### 2.1 — `MethodSelect.vue`
 
-- [ ] Dropdown for `GET/POST/PUT/DELETE/PATCH`, `v-model` bound (FR-1.1)
-- [ ] Per-method color token (GET green, POST blue, PUT yellow, DELETE red, PATCH purple/orange)
+- [x] Dropdown for `GET/POST/PUT/DELETE/PATCH`, `v-model` bound (FR-1.1)
+- [x] Per-method color token (GET green, POST blue, PUT yellow, DELETE red, PATCH purple/orange)
 
 ### 2.2 — `UrlBar.vue`
 

@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import PrimeVue from 'primevue/config'
+import 'primeicons/primeicons.css'
 import Button from 'primevue/button'
 import Select from 'primevue/select'
 import Dialog from 'primevue/dialog'
