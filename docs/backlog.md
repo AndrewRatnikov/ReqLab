@@ -166,8 +166,8 @@ Goal: visualize what came back.
 
 ### 3.4 — `ResponsePanel.vue` composition
 
-- [ ] Switches between: empty state / loading state / `StatusBar` + `JsonViewer` / `ErrorMessage`
-- [ ] Single source of truth: `useFetchClient` instance shared with `RequestPanel` (likely via a parent-level composable instance passed down, or provide/inject)
+- [x] Switches between: empty state / loading state / `StatusBar` + `JsonViewer` / `ErrorMessage`
+- [x] Single source of truth: `useFetchClient` instance shared with `RequestPanel` (parent-level instance in `App.vue`, passed to both via a `client` prop — same pattern established in 2.7). Also restored `App.vue`'s two-region grid shell (lg+ side-by-side, stacked below per 0.5) which had been collapsed to a single stacked debug column during Option 2/3's temporary manual-verification wiring.
 
 ### 3.5 — End-to-end manual pass
 
