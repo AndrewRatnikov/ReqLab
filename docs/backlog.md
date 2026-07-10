@@ -115,8 +115,8 @@ Goal: user can configure and fire a request.
 
 ### 2.3 — `SendButton.vue`
 
-- [ ] Idle → loading (spinner) → cancel-clickable state machine, driven by `useFetchClient.loading` (FR-1.3)
-- [ ] Calls `send()` / `cancel()` from the composable
+- [x] Idle → loading (spinner) → cancel-clickable state machine, driven by `useFetchClient.loading` (FR-1.3)
+- [x] Calls `send()` / `cancel()` from the composable (implemented as `loading` prop + `send`/`cancel` emits, matching 2.1/2.2's decoupled prop/emit pattern; parent wires the composable's `send`/`cancel`)
 
 ### 2.4 — `HeadersTab.vue`
 
