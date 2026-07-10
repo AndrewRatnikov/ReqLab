@@ -11,10 +11,30 @@ const { method, url, headers, body, loading, response, error, latencyMs, send, c
   useFetchClient()
 
 const bodyTabRef = ref<InstanceType<typeof BodyTab> | null>(null)
+const activeTab = ref<'headers' | 'body'>('headers')
 
 function trySend() {
   if (!bodyTabRef.value?.validate()) return
   send()
+}
+
+const tabListPt = {
+  root: { class: 'flex gap-1 border-b border-border' },
+}
+
+const tabPt = {
+  root: ({ context }: { context: { active: boolean } }) => ({
+    class: [
+      'cursor-pointer border-b-2 px-3 py-1.5 font-mono text-sm transition-colors',
+      context.active
+        ? 'border-blue-500 text-text-base'
+        : 'border-transparent text-text-muted hover:text-text-base',
+    ],
+  }),
+}
+
+const tabPanelsPt = {
+  root: { class: 'pt-3' },
 }
 </script>
 
@@ -29,8 +49,20 @@ function trySend() {
         <UrlBar v-model="url" @send="trySend" />
         <SendButton :loading="loading" @send="trySend" @cancel="cancel" />
       </div>
-      <HeadersTab v-model="headers" />
-      <BodyTab ref="bodyTabRef" v-model="body" :method="method" />
+      <PTabs :value="activeTab" @update:value="activeTab = $event as 'headers' | 'body'">
+        <PTabList :pt="tabListPt">
+          <PTab value="headers" :pt="tabPt">Headers</PTab>
+          <PTab value="body" :pt="tabPt">Body</PTab>
+        </PTabList>
+        <PTabPanels :pt="tabPanelsPt">
+          <PTabPanel value="headers">
+            <HeadersTab v-model="headers" />
+          </PTabPanel>
+          <PTabPanel value="body">
+            <BodyTab ref="bodyTabRef" v-model="body" :method="method" />
+          </PTabPanel>
+        </PTabPanels>
+      </PTabs>
       <p class="text-sm text-text-muted">url: {{ url }}</p>
       <p v-if="latencyMs !== null" class="text-sm text-text-muted">latency: {{ latencyMs }}ms</p>
       <pre v-if="response" class="text-xs">{{ response }}</pre>

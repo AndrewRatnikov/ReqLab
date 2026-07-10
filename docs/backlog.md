@@ -132,7 +132,7 @@ Goal: user can configure and fire a request.
 
 ### 2.6 — Tab container
 
-- [ ] Simple tab switcher (Headers / Body) below the URL bar, no extra state library — local `ref<'headers' | 'body'>`
+- [x] Simple tab switcher (Headers / Body) below the URL bar, no extra state library — local `ref<'headers' | 'body'>` (built directly in `App.vue` using `PTabs`/`PTabList`/`PTab`/`PTabPanels`/`PTabPanel` — no dedicated file, per the folder structure; 2.7 will extract this composition into `RequestPanel.vue`)
 
 ### 2.7 — `RequestPanel.vue` composition
 
