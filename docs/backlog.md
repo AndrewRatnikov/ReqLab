@@ -160,9 +160,9 @@ Goal: visualize what came back.
 
 ### 3.3 — `ErrorMessage.vue`
 
-- [ ] Single component rendering the right copy per `ClientError` variant from 1.1:
+- [x] Single component rendering the right copy per `ClientError` variant from 1.1:
   - network (FR-4.1), cors (FR-4.2), timeout (FR-4.5)
-- [ ] Red, inline, replaces response body area entirely — no modal
+- [x] Red, inline, replaces response body area entirely — no modal
 
 ### 3.4 — `ResponsePanel.vue` composition
 
