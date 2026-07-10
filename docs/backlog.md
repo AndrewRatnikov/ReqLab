@@ -120,9 +120,9 @@ Goal: user can configure and fire a request.
 
 ### 2.4 — `HeadersTab.vue`
 
-- [ ] Key/value grid, each row `v-model`-bound to a `HeaderEntry`
-- [ ] "Add Row" appends an empty pair; rows with empty key are filtered out on send (FR-2.1)
-- [ ] Delete-row affordance per row
+- [x] Key/value grid, each row `v-model`-bound to a `HeaderEntry`
+- [x] "Add Row" appends an empty pair; rows with empty key are filtered out on send (FR-2.1)
+- [x] Delete-row affordance per row
 
 ### 2.5 — `BodyTab.vue`
 

@@ -2,9 +2,10 @@
 import MethodSelect from '@/components/request/MethodSelect.vue'
 import UrlBar from '@/components/request/UrlBar.vue'
 import SendButton from '@/components/request/SendButton.vue'
+import HeadersTab from '@/components/request/HeadersTab.vue'
 import { useFetchClient } from '@/composables/useFetchClient'
 
-const { method, url, loading, response, error, latencyMs, send, cancel } = useFetchClient()
+const { method, url, headers, loading, response, error, latencyMs, send, cancel } = useFetchClient()
 </script>
 
 <template>
@@ -18,6 +19,7 @@ const { method, url, loading, response, error, latencyMs, send, cancel } = useFe
         <UrlBar v-model="url" @send="send" />
         <SendButton :loading="loading" @send="send" @cancel="cancel" />
       </div>
+      <HeadersTab v-model="headers" />
       <p class="text-sm text-text-muted">url: {{ url }}</p>
       <p v-if="latencyMs !== null" class="text-sm text-text-muted">latency: {{ latencyMs }}ms</p>
       <pre v-if="response" class="text-xs">{{ response }}</pre>
