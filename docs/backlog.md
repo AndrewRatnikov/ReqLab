@@ -183,9 +183,9 @@ Goal: set user expectations and give a workaround path.
 
 ### 4.1 — `CorsAlertBanner.vue`
 
-- [ ] Permanent, non-dismissible banner pinned at the top of the viewport, above the request panel
-- [ ] Exact copy: _"Browser Security Alert: Outbound target APIs must support CORS for direct browser clients."_
-- [ ] Info icon affordance that opens 4.2's modal
+- [x] Permanent, non-dismissible banner pinned at the top of the viewport, above the request panel
+- [x] Exact copy: _"Browser Security Alert: Outbound target APIs must support CORS for direct browser clients."_
+- [x] Info icon affordance that opens 4.2's modal (emits `info-click`; wired to a temporary `console.log` in `App.vue` until 4.2's `CorsWorkaroundModal` exists)
 
 ### 4.2 — `CorsWorkaroundModal.vue`
 
