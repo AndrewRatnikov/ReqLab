@@ -24,6 +24,8 @@ function onBlur() {
 
 function onKeydown(e: KeyboardEvent) {
   if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    // Handled here; stop it bubbling to RequestPanel's own Cmd/Ctrl+Enter listener.
+    e.stopPropagation()
     touched.value = true
     if (validation.value.ok) emit('send')
   }

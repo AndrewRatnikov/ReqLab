@@ -136,8 +136,8 @@ Goal: user can configure and fire a request.
 
 ### 2.7 — `RequestPanel.vue` composition
 
-- [ ] Wires 2.1–2.6 together against a single `useFetchClient()` instance
-- [ ] Global Cmd/Ctrl+Enter listener scoped to the request panel (not just the URL bar)
+- [x] Wires 2.1–2.6 together against a single `useFetchClient()` instance (instantiated once in `App.vue`, passed down as a `client` prop — a plain-object-of-refs, no Pinia — so it can later be shared with `ResponsePanel` per 3.4)
+- [x] Global Cmd/Ctrl+Enter listener scoped to the request panel (not just the URL bar) — `@keydown` on the panel root catches bubbled events from headers/body/method fields; `UrlBar` calls `stopPropagation()` on its own Cmd/Ctrl+Enter handling to avoid double-dispatch
 
 **Exit criteria:** can configure and send a GET/POST request to a public CORS-enabled API and see `loading` flip correctly; invalid URL/body block dispatch with inline errors.
 
