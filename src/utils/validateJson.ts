@@ -3,6 +3,9 @@ export function validateJson(value: string): { ok: true } | { ok: false; message
     JSON.parse(value)
     return { ok: true }
   } catch {
-    return { ok: false, message: 'Request body is not valid JSON' }
+    return {
+      ok: false,
+      message: 'Request body is not valid JSON. Fix the syntax or clear the field.',
+    }
   }
 }
