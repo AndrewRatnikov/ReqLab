@@ -109,9 +109,9 @@ Goal: user can configure and fire a request.
 
 ### 2.2 — `UrlBar.vue`
 
-- [ ] Text input, `v-model` bound (FR-1.2)
-- [ ] Red border + inline message on invalid URL using `validateUrl` from 1.2 (FR-4.3)
-- [ ] `Cmd/Ctrl+Enter` keybinding to trigger send from this field
+- [x] Text input, `v-model` bound (FR-1.2)
+- [x] Red border + inline message on invalid URL using `validateUrl` from 1.2 (FR-4.3)
+- [x] `Cmd/Ctrl+Enter` keybinding to trigger send from this field
 
 ### 2.3 — `SendButton.vue`
 
