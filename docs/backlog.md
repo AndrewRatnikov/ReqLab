@@ -126,9 +126,9 @@ Goal: user can configure and fire a request.
 
 ### 2.5 — `BodyTab.vue`
 
-- [ ] Raw textarea, `v-model` bound
-- [ ] Fully disabled (input + visual dimming) only when `method === 'GET'`; enabled for `DELETE`/`POST`/`PUT`/`PATCH` (FR-2.2)
-- [ ] On send attempt: red border + inline message via `validateJson` if malformed (FR-4.4)
+- [x] Raw textarea, `v-model` bound
+- [x] Fully disabled (input + visual dimming) only when `method === 'GET'`; enabled for `DELETE`/`POST`/`PUT`/`PATCH` (FR-2.2)
+- [x] On send attempt: red border + inline message via `validateJson` if malformed (FR-4.4) — component exposes a `validate()` method (via `defineExpose`) that the send-gating orchestrator (2.7) calls before dispatch; empty body never blocks send
 
 ### 2.6 — Tab container
 
