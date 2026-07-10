@@ -171,7 +171,7 @@ Goal: visualize what came back.
 
 ### 3.5 — End-to-end manual pass
 
-- [ ] Success (JSON), success (non-JSON, e.g. an HTML-returning endpoint), network failure (bad host), CORS block (known non-CORS API), timeout (slow/hanging endpoint or mock)
+- [x] Success (JSON), success (non-JSON, e.g. an HTML-returning endpoint), network failure (bad host), CORS block (known non-CORS API), timeout (slow/hanging endpoint or mock) — all 5 driven live through the real UI (see session notes: network failure and CORS block both surface as "CORS Error", which is the documented 1.6 limitation, not a bug; timeout verified against a real ~30s wait using a local same-origin-avoidant hanging server rather than a flaky public endpoint)
 
 **Exit criteria:** full request → response loop works end-to-end through the UI for success, non-JSON, and all 4 error categories.
 
