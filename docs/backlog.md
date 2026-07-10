@@ -155,8 +155,8 @@ Goal: visualize what came back.
 
 ### 3.2 — `JsonViewer.vue`
 
-- [ ] Pretty-print (`JSON.stringify(_, null, 2)`) in monospace font, in a plain scrollable container — no virtualization for MVP, even for large payloads (FR-3.2)
-- [ ] Detect non-JSON (`Content-Type` check + parse fallback) → render: _"Response is not JSON. Non-JSON rendering is not supported in MVP."_ (FR-3.2)
+- [x] Pretty-print (`JSON.stringify(_, null, 2)`) in monospace font, in a plain scrollable container — no virtualization for MVP, even for large payloads (FR-3.2)
+- [x] Detect non-JSON (`Content-Type` check + parse fallback) → render: _"Response is not JSON. Non-JSON rendering is not supported in MVP."_ (FR-3.2)
 
 ### 3.3 — `ErrorMessage.vue`
 

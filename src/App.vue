@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import RequestPanel from '@/components/request/RequestPanel.vue'
 import StatusBar from '@/components/response/StatusBar.vue'
+import JsonViewer from '@/components/response/JsonViewer.vue'
 import { useFetchClient } from '@/composables/useFetchClient'
 
 const client = useFetchClient()
@@ -17,7 +18,7 @@ const { url, response, error } = client
       <!-- Temporary manual-verification output; replaced by ResponsePanel (Option 3) -->
       <p class="text-sm text-text-muted">url: {{ url }}</p>
       <StatusBar :response="response" />
-      <pre v-if="response" class="text-xs">{{ response }}</pre>
+      <JsonViewer v-if="response" :response="response" />
       <p v-if="error" class="text-sm text-red-500">{{ error.kind }}: {{ error.message }}</p>
     </main>
   </div>
