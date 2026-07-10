@@ -189,8 +189,8 @@ Goal: set user expectations and give a workaround path.
 
 ### 4.2 — `CorsWorkaroundModal.vue`
 
-- [ ] Step-by-step instructions for launching Chrome with `--disable-web-security --user-data-dir=...`
-- [ ] Close on overlay click / Esc / explicit close button
+- [x] Step-by-step instructions for launching Chrome with `--disable-web-security --user-data-dir=...`
+- [x] Close on overlay click / Esc / explicit close button
 
 ### 4.3 — Cross-link from error state
 
