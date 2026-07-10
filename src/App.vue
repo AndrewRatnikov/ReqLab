@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import RequestPanel from '@/components/request/RequestPanel.vue'
+import StatusBar from '@/components/response/StatusBar.vue'
 import { useFetchClient } from '@/composables/useFetchClient'
 
 const client = useFetchClient()
-const { url, response, error, latencyMs } = client
+const { url, response, error } = client
 </script>
 
 <template>
@@ -15,7 +16,7 @@ const { url, response, error, latencyMs } = client
       <RequestPanel :client="client" />
       <!-- Temporary manual-verification output; replaced by ResponsePanel (Option 3) -->
       <p class="text-sm text-text-muted">url: {{ url }}</p>
-      <p v-if="latencyMs !== null" class="text-sm text-text-muted">latency: {{ latencyMs }}ms</p>
+      <StatusBar :response="response" />
       <pre v-if="response" class="text-xs">{{ response }}</pre>
       <p v-if="error" class="text-sm text-red-500">{{ error.kind }}: {{ error.message }}</p>
     </main>

@@ -149,9 +149,9 @@ Goal: visualize what came back.
 
 ### 3.1 — `StatusBar.vue`
 
-- [ ] HTTP status code + text, color-coded (2xx green, 4xx/5xx red) (FR-3.1)
-- [ ] Latency in ms, sourced from `useFetchClient.latencyMs`
-- [ ] Hidden/empty state before first send
+- [x] HTTP status code + text, color-coded (2xx green, 4xx/5xx red) (FR-3.1)
+- [x] Latency in ms, sourced from `useFetchClient.latencyMs`
+- [x] Hidden/empty state before first send
 
 ### 3.2 — `JsonViewer.vue`
 
