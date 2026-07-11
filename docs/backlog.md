@@ -194,7 +194,7 @@ Goal: set user expectations and give a workaround path.
 
 ### 4.3 — Cross-link from error state
 
-- [ ] `ErrorMessage.vue`'s CORS variant (3.3) includes a "see workaround guide above" reference/anchor link back to the banner's info icon (FR-4.2 copy)
+- [x] `ErrorMessage.vue`'s CORS variant (3.3) includes a "see workaround guide above" reference/anchor link back to the banner's info icon (FR-4.2 copy) — implemented as a real `<a href="#cors-info-icon">` (native fragment-navigation, no cross-component event plumbing) targeting an `id` added to `CorsAlertBanner`'s info button
 
 **Exit criteria:** banner always visible; modal opens/closes; CORS failures visibly point users to it.
 

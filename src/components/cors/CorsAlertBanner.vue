@@ -13,6 +13,7 @@ defineEmits<{
       clients.</span
     >
     <button
+      id="cors-info-icon"
       type="button"
       class="inline-flex items-center justify-center rounded-full text-amber-600 transition-colors hover:text-amber-800"
       aria-label="CORS workaround info"
