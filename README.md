@@ -2,6 +2,8 @@
 
 A browser-based HTTP client — a lightweight, zero-install alternative to Postman. Built with Vue 3 as a hands-on learning project.
 
+**Live site:** https://andrewratnikov.github.io/ReqLab/
+
 ## Features
 
 - **Method selector** — GET, POST, PUT, DELETE, PATCH with REST color coding
