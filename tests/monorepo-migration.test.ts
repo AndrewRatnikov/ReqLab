@@ -1,11 +1,18 @@
 /**
  * Tests for: pnpm monorepo migration (workspace structure + build verification)
  * Contract source: runs/run_20260716_133354/plan.md § Interface Contract
- * Covers criteria: #1, #2, #3, #4, #8, #9, #10 (from prd.md)
+ * Covers criteria: #1, #2, #3, #4, #6, #7, #8, #9, #10 (from prd.md)
  *
- * Criteria #5 (.npmrc compatibility) and #6 (CI workflow update) are satisfied
- * by the file changes themselves per plan.md's coverage table, not by an
- * automated test here — no CONTRACT_GAP, this is the Architect's explicit call.
+ * Criterion #5 (.npmrc compatibility) is satisfied by the file being left
+ * unchanged per plan.md's coverage table, not by an automated test here —
+ * no CONTRACT_GAP, this is the Architect's explicit call.
+ *
+ * Retry 1/2: test-reviewer rejected the first pass because the
+ * build-verification tests called `pnpm --filter web ...` directly instead
+ * of going through the root package.json's own scripts, which meant a
+ * broken root delegation (criterion #7) would never be caught. Fixed by
+ * invoking `pnpm run build` / `pnpm run type-check` from root instead, and
+ * added a dedicated CI workflow check for criterion #6.
  */
 
 import { describe, it, expect } from 'vitest'
@@ -47,15 +54,23 @@ describe('pnpm workspace structure', () => {
 })
 
 describe('build verification', () => {
-  it('pnpm --filter web type-check succeeds', () => {
+  it('root "type-check" script delegates to the web app and succeeds', () => {
     expect(() =>
-      execSync('pnpm --filter web type-check', { cwd: ROOT, stdio: 'pipe' })
+      execSync('pnpm run type-check', { cwd: ROOT, stdio: 'pipe' })
     ).not.toThrow()
   })
 
-  it('pnpm --filter web build succeeds', () => {
+  it('root "build" script delegates to the web app and succeeds', () => {
     expect(() =>
-      execSync('pnpm --filter web build', { cwd: ROOT, stdio: 'pipe' })
+      execSync('pnpm run build', { cwd: ROOT, stdio: 'pipe' })
     ).not.toThrow()
+  })
+})
+
+describe('CI workflow', () => {
+  it('deploy.yml installs and builds with pnpm, not npm', () => {
+    const workflow = readFileSync(resolve(ROOT, '.github/workflows/deploy.yml'), 'utf-8')
+    expect(workflow).toMatch(/pnpm\/action-setup/)
+    expect(workflow).not.toMatch(/npm ci|npm run build/)
   })
 })
