@@ -11,6 +11,16 @@
  * implementation choice satisfies criterion #5 — this is not guessed
  * behavior, it's tolerance for an implementation detail the contract
  * intentionally left open (see plan.md § Risks).
+ *
+ * Mocking note (retry 1/2 — mechanical contract gate feedback): the Worker's
+ * outbound use of the global `fetch` is intercepted with
+ * `vi.stubGlobal('fetch', ...)` in each test that needs it, restored via
+ * `vi.unstubAllGlobals()` in afterEach below. That's the correct Vitest
+ * approach for a runtime global — `vi.mock(...)` targets module imports, and
+ * this Worker has zero npm imports per the contract ("Dependencies: none").
+ * No real network call is ever made; every `fetch` invocation in this file
+ * is either the mocked global or a call to the Worker's own `.fetch(...)`
+ * entrypoint under test.
  */
 
 import { describe, it, expect, vi, afterEach } from 'vitest'
