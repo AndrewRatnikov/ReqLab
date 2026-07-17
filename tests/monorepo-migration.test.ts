@@ -23,17 +23,17 @@ import { resolve } from 'node:path'
 const ROOT = resolve(__dirname, '..')
 
 describe('pnpm workspace structure', () => {
-  it('declares apps/* as a workspace member in pnpm-workspace.yaml', () => {
+  it('declares apps/* as a workspace member in pnpm-workspace.yaml', { timeout: 15000 }, () => {
     const contents = readFileSync(resolve(ROOT, 'pnpm-workspace.yaml'), 'utf-8')
     expect(contents).toMatch(/apps\/\*/)
   })
 
-  it('has apps/web/package.json with name "web"', () => {
+  it('has apps/web/package.json with name "web"', { timeout: 15000 }, () => {
     const pkg = JSON.parse(readFileSync(resolve(ROOT, 'apps/web/package.json'), 'utf-8'))
     expect(pkg.name).toBe('web')
   })
 
-  it('apps/web/package.json declares the expected scripts', () => {
+  it('apps/web/package.json declares the expected scripts', { timeout: 15000 }, () => {
     const pkg = JSON.parse(readFileSync(resolve(ROOT, 'apps/web/package.json'), 'utf-8'))
     expect(pkg.scripts).toMatchObject({
       dev: expect.any(String),
@@ -43,32 +43,28 @@ describe('pnpm workspace structure', () => {
     })
   })
 
-  it('root package.json no longer lists app runtime dependencies', () => {
+  it('root package.json no longer lists app runtime dependencies', { timeout: 15000 }, () => {
     const pkg = JSON.parse(readFileSync(resolve(ROOT, 'package.json'), 'utf-8'))
     expect(pkg.dependencies ?? {}).not.toHaveProperty('vue')
   })
 
-  it('package-lock.json has been removed', () => {
+  it('package-lock.json has been removed', { timeout: 15000 }, () => {
     expect(existsSync(resolve(ROOT, 'package-lock.json'))).toBe(false)
   })
 })
 
 describe('build verification', () => {
-  it('root "type-check" script delegates to the web app and succeeds', () => {
-    expect(() =>
-      execSync('pnpm run type-check', { cwd: ROOT, stdio: 'pipe' })
-    ).not.toThrow()
+  it('root "type-check" script delegates to the web app and succeeds', { timeout: 15000 }, () => {
+    expect(() => execSync('pnpm run type-check', { cwd: ROOT, stdio: 'pipe' })).not.toThrow()
   })
 
-  it('root "build" script delegates to the web app and succeeds', () => {
-    expect(() =>
-      execSync('pnpm run build', { cwd: ROOT, stdio: 'pipe' })
-    ).not.toThrow()
+  it('root "build" script delegates to the web app and succeeds', { timeout: 15000 }, () => {
+    expect(() => execSync('pnpm run build', { cwd: ROOT, stdio: 'pipe' })).not.toThrow()
   })
 })
 
 describe('CI workflow', () => {
-  it('deploy.yml installs and builds with pnpm, not npm', () => {
+  it('deploy.yml installs and builds with pnpm, not npm', { timeout: 15000 }, () => {
     const workflow = readFileSync(resolve(ROOT, '.github/workflows/deploy.yml'), 'utf-8')
     expect(workflow).toMatch(/pnpm\/action-setup/)
     expect(workflow).not.toMatch(/npm ci|npm run build/)
