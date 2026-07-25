@@ -45,6 +45,18 @@ export function useFetchClient() {
     abortController?.abort()
   }
 
+  function buildFetchOptions(
+    requestHeaders: Record<string, string>,
+    hasBody: boolean,
+  ): RequestInit {
+    return {
+      method: method.value,
+      headers: requestHeaders,
+      ...(hasBody && body.value ? { body: body.value } : {}),
+      signal: abortController!.signal,
+    }
+  }
+
   async function send() {
     abortController?.abort()
     abortController = new AbortController()
@@ -61,15 +73,22 @@ export function useFetchClient() {
     }
 
     const hasBody = method.value !== 'GET'
+    const fetchOptions = buildFetchOptions(requestHeaders, hasBody)
 
     const start = performance.now()
     try {
-      const res = await fetch(url.value, {
-        method: method.value,
-        headers: requestHeaders,
-        ...(hasBody && body.value ? { body: body.value } : {}),
-        signal: abortController.signal,
-      })
+      let res: Response
+      try {
+        res = await fetch(url.value, fetchOptions)
+      } catch (err) {
+        // Only a CORS-shaped failure warrants the proxy retry — timeouts and
+        // manual cancels should propagate as-is (see classifyError above).
+        if (classifyError(err)?.kind !== 'cors') {
+          throw err
+        }
+        const proxyUrl = `${import.meta.env.VITE_PROXY_URL}?url=${encodeURIComponent(url.value)}`
+        res = await fetch(proxyUrl, fetchOptions)
+      }
 
       const elapsed = performance.now() - start
       const contentType = res.headers.get('content-type') ?? ''

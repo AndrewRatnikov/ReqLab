@@ -32,6 +32,12 @@ const dialogPt = {
     :pt="dialogPt"
     @update:visible="emit('update:visible', $event as boolean)"
   >
+    <p>
+      CORS-blocked requests are retried automatically through a relay proxy — most targets need no
+      further action from you. If a request still fails (the target also blocks server-to-server
+      calls, or the proxy is unreachable), you can force-disable CORS checks locally as a last
+      resort:
+    </p>
     <p class="font-bold text-red-500">
       Warning: this disables a core browser security protection. Only use a dedicated profile for
       local testing — never browse the general web with it.
