@@ -9,8 +9,8 @@ defineEmits<{
     class="flex items-center justify-center gap-2 border-b border-amber-500/40 bg-amber-500/10 px-4 py-2 text-center text-sm text-amber-600"
   >
     <span
-      >Browser Security Alert: Outbound target APIs must support CORS for direct browser
-      clients.</span
+      >Browser Security Alert: CORS-blocked requests are automatically retried through a relay proxy
+      — outbound traffic may pass through a third-party server when that happens.</span
     >
     <button
       id="cors-info-icon"

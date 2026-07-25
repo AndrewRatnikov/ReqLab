@@ -59,7 +59,7 @@ MVP uses `prefers-color-scheme` CSS media query to mirror OS setting — no togg
 
 ### CORS Constraint
 
-The app runs entirely in the browser, so target APIs must support CORS. The UI must show a permanent alert: _"Browser Security Alert: Outbound target APIs must support CORS for direct browser clients."_ An info icon opens a modal with Chrome `--disable-web-security` workaround instructions.
+The app runs entirely in the browser, so target APIs must support CORS. When a direct browser request is CORS-blocked, `useFetchClient.ts` automatically retries it through a relay proxy (`backend/`, a Cloudflare Worker) rather than failing outright. The UI must show a permanent alert disclosing this: _"Browser Security Alert: CORS-blocked requests are automatically retried through a relay proxy — outbound traffic may pass through a third-party server when that happens."_ An info icon opens a modal with Chrome `--disable-web-security` workaround instructions, framed as a last resort for when the proxy retry also fails.
 
 ### Vue Patterns to Follow
 
