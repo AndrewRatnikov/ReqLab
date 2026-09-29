@@ -250,6 +250,10 @@ describe('criterion 6: preflight from a missing/disallowed origin is still 204 w
 })
 
 describe('criterion 7: Vary: Origin appears on every response the worker returns', () => {
+  it('VARY_DEFAULT constant is exactly "Origin"', () => {
+    expect(VARY_DEFAULT).toBe('Origin')
+  })
+
   it('is set on the 403 (missing Origin)', async () => {
     vi.stubGlobal('fetch', vi.fn())
     const request = new Request(`${WORKER_BASE}${TARGET_QS}`, { method: 'GET' })
@@ -444,6 +448,16 @@ describe('criterion 11: forwarded headers strip Origin/Referer/Cookie/Host/cf-* 
       },
     })
 
+    // Precondition: the fixture actually carries these headers, so the
+    // absence assertions below fail loudly if the fixture ever stops
+    // carrying them, rather than passing vacuously.
+    expect(request.headers.get('origin')).toBe(ALLOWED_ORIGIN)
+    expect(request.headers.get('referer')).toBe('https://andrewratnikov.github.io/app')
+    expect(request.headers.get('cookie')).toBe('session=abc123')
+    expect(request.headers.get('host')).toBe('proxy.example.com')
+    expect(request.headers.get('cf-connecting-ip')).toBe('203.0.113.1')
+    expect(request.headers.get('cf-ray')).toBe('abc123-SJC')
+
     const forwarded = buildForwardHeaders(request)
 
     expect(forwarded.has('origin')).toBe(false)
@@ -473,6 +487,15 @@ describe('criterion 11: forwarded headers strip Origin/Referer/Cookie/Host/cf-* 
       },
       body: JSON.stringify({ foo: 'bar' }),
     })
+
+    // Precondition: the fixture actually carries these headers, so the
+    // absence assertions below fail loudly if the fixture ever stops
+    // carrying them, rather than passing vacuously.
+    expect(request.headers.get('referer')).toBe('https://andrewratnikov.github.io/app')
+    expect(request.headers.get('cookie')).toBe('session=abc123')
+    expect(request.headers.get('host')).toBe('proxy.example.com')
+    expect(request.headers.get('cf-connecting-ip')).toBe('203.0.113.1')
+
     await worker.fetch(request, {}, {})
 
     expect(mockFetch).toHaveBeenCalledTimes(1)
