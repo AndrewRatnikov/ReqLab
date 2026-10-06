@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import type { HttpMethod, HeaderEntry, ResponseResult, ClientError } from '@/types/http'
+import { headersToEntries } from '@/utils/responseHeaders'
 
 // Browsers surface both CORS blocks and genuine network failures as TypeError
 // ("Failed to fetch") with no reliable way to distinguish them. We classify
@@ -78,6 +79,7 @@ export function useFetchClient() {
     const start = performance.now()
     try {
       let res: Response
+      let viaProxy = false
       try {
         res = await fetch(url.value, fetchOptions)
       } catch (err) {
@@ -87,6 +89,7 @@ export function useFetchClient() {
           throw err
         }
         const proxyUrl = `${import.meta.env.VITE_PROXY_URL}?url=${encodeURIComponent(url.value)}`
+        viaProxy = true
         res = await fetch(proxyUrl, fetchOptions)
       }
 
@@ -100,6 +103,8 @@ export function useFetchClient() {
         body: text,
         contentType,
         latencyMs: Math.round(elapsed),
+        headers: headersToEntries(res.headers),
+        viaProxy,
       }
       latencyMs.value = response.value.latencyMs
     } catch (err) {

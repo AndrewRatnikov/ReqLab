@@ -12,6 +12,12 @@ export const STRIPPED_REQUEST_HEADERS = ['host', 'origin', 'referer', 'cookie']
 export const STRIPPED_HEADER_PREFIX = 'cf-'
 export const VARY_DEFAULT = 'Origin'
 export const VARY_PREFLIGHT = 'Origin, Access-Control-Request-Headers'
+export const UPSTREAM_HEADER_PREFIX = 'X-Upstream-'
+export const UPSTREAM_SET_COOKIE_HEADER = 'X-Upstream-Set-Cookie'
+
+const RESERVED_SET_COOKIE = UPSTREAM_SET_COOKIE_HEADER.toLowerCase()
+const RESERVED_VARY = `${UPSTREAM_HEADER_PREFIX}Vary`.toLowerCase()
+const RESERVED_ACCESS_CONTROL_PREFIX = `${UPSTREAM_HEADER_PREFIX}Access-Control-`.toLowerCase()
 
 export function isAllowedOrigin(origin) {
   return typeof origin === 'string' && ALLOWED_ORIGINS.includes(origin)
@@ -82,6 +88,82 @@ export function buildForwardHeaders(request) {
   return headers
 }
 
+/*
+ * Response header relay. This is a security trade-off, accepted by the user
+ * on 2026-10-06: the browser never
+ * lets page JavaScript read a Set-Cookie response header. To show upstream
+ * cookies in ReqLab's response panel, this Worker drops the real Set-Cookie
+ * and re-emits every upstream cookie as a JSON array in X-Upstream-Set-Cookie,
+ * which IS exposed to the page. That makes upstream session cookies readable
+ * by JavaScript on the allow-listed origins. It also means no upstream cookie
+ * is ever stored by the browser for the proxy's domain.
+ *
+ * The upstream's own Access-Control-* and Vary values are copied to
+ * X-Upstream-* names before the Worker applies its own CORS headers, and
+ * every resulting header name is listed in Access-Control-Expose-Headers so
+ * the page can read the full upstream header set.
+ */
+function isReservedRelayName(lowerName) {
+  return (
+    lowerName === RESERVED_SET_COOKIE ||
+    lowerName === RESERVED_VARY ||
+    lowerName.startsWith(RESERVED_ACCESS_CONTROL_PREFIX)
+  )
+}
+
+function isUpstreamCorsOrVary(lowerName) {
+  return lowerName.startsWith('access-control-') || lowerName === 'vary'
+}
+
+export function buildRelayedResponseHeaders(upstreamHeaders, cors) {
+  const headers = new Headers(upstreamHeaders)
+
+  let cookies
+  if (typeof upstreamHeaders.getSetCookie === 'function') {
+    cookies = upstreamHeaders.getSetCookie()
+  } else {
+    const single = upstreamHeaders.get('set-cookie')
+    cookies = single ? [single] : []
+  }
+  headers.delete('set-cookie')
+
+  // Anti-spoof: an upstream must not be able to forge the relay names the UI
+  // re-labels as "the upstream's" values. Materialize keys before deleting.
+  for (const name of [...headers.keys()]) {
+    if (isReservedRelayName(name.toLowerCase())) {
+      headers.delete(name)
+    }
+  }
+
+  upstreamHeaders.forEach((value, name) => {
+    if (isUpstreamCorsOrVary(name.toLowerCase())) {
+      headers.set(UPSTREAM_HEADER_PREFIX + name, value)
+    }
+  })
+
+  if (cookies.length > 0) {
+    headers.set(UPSTREAM_SET_COOKIE_HEADER, JSON.stringify(cookies))
+  }
+
+  for (const [key, value] of Object.entries(cors)) {
+    headers.set(key, value)
+  }
+  headers.set('Vary', VARY_DEFAULT)
+
+  headers.delete('Access-Control-Expose-Headers')
+  const exposed = []
+  for (const name of headers.keys()) {
+    const lower = name.toLowerCase()
+    if (lower === 'set-cookie' || lower === 'access-control-expose-headers') continue
+    if (!exposed.includes(lower)) exposed.push(lower)
+  }
+  if (exposed.length > 0) {
+    headers.set('Access-Control-Expose-Headers', exposed.join(', '))
+  }
+
+  return headers
+}
+
 export default {
   async fetch(request, env, ctx) {
     const origin = request.headers.get('Origin')
@@ -141,11 +223,7 @@ export default {
       body,
     })
 
-    const responseHeaders = new Headers(upstreamResponse.headers)
-    for (const [key, value] of Object.entries(cors)) {
-      responseHeaders.set(key, value)
-    }
-    responseHeaders.set('Vary', VARY_DEFAULT)
+    const responseHeaders = buildRelayedResponseHeaders(upstreamResponse.headers, cors)
 
     return new Response(upstreamResponse.body, {
       status: upstreamResponse.status,

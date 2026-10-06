@@ -12,12 +12,21 @@ export interface RequestConfig {
   body: string
 }
 
+export interface ResponseHeaderEntry {
+  name: string
+  value: string
+}
+
 export interface ResponseResult {
   status: number
   statusText: string
   body: string
   contentType: string
   latencyMs: number
+  /** Raw headers readable from the Response actually used. */
+  headers: ResponseHeaderEntry[]
+  /** True iff the CORS-retry proxy response was used. */
+  viaProxy: boolean
 }
 
 export type ClientError =

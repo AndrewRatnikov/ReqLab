@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import StatusBar from './StatusBar.vue'
 import JsonViewer from './JsonViewer.vue'
+import ResponseHeaders from './ResponseHeaders.vue'
 import ErrorMessage from './ErrorMessage.vue'
 import type { useFetchClient } from '@/composables/useFetchClient'
 
@@ -18,6 +19,7 @@ const { url, response, error, loading } = props.client
     </template>
     <template v-else-if="response">
       <StatusBar :response="response" />
+      <ResponseHeaders :response="response" />
       <JsonViewer :response="response" />
     </template>
     <template v-else-if="error">
