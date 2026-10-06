@@ -285,16 +285,26 @@ describe('protections still hold (criteria 12 and 13)', () => {
   })
 
   it('buildForwardHeaders still strips host, origin, referer, cookie and cf-*', () => {
-    const incoming = new Headers({
-      Host: 'proxy.example.com',
-      Origin: ALLOWED_ORIGIN,
-      Referer: 'https://andrewratnikov.github.io/x',
-      Cookie: 'session=1',
-      'CF-Connecting-IP': '1.2.3.4',
-      Authorization: 'Bearer t',
-      'X-Custom': 'keep',
+    const request = new Request(`${WORKER_BASE}${TARGET_QS}`, {
+      method: 'GET',
+      headers: {
+        Host: 'proxy.example.com',
+        Origin: ALLOWED_ORIGIN,
+        Referer: 'https://andrewratnikov.github.io/x',
+        Cookie: 'session=1',
+        'CF-Connecting-IP': '1.2.3.4',
+        Authorization: 'Bearer t',
+        'X-Custom': 'keep',
+      },
     })
-    const out = buildForwardHeaders(incoming)
+    // Precondition: the fixture really carries these headers, so the
+    // absence assertions below cannot pass vacuously.
+    expect(request.headers.get('origin')).toBe(ALLOWED_ORIGIN)
+    expect(request.headers.get('referer')).toBe('https://andrewratnikov.github.io/x')
+    expect(request.headers.get('cookie')).toBe('session=1')
+    expect(request.headers.get('host')).toBe('proxy.example.com')
+    expect(request.headers.get('cf-connecting-ip')).toBe('1.2.3.4')
+    const out = buildForwardHeaders(request)
     for (const name of ['host', 'origin', 'referer', 'cookie', 'cf-connecting-ip']) {
       expect(out.has(name)).toBe(false)
     }
