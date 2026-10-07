@@ -16,3 +16,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: backend
+          # The action's default wrangler (3.90.0) predates wrangler.json support
+          wranglerVersion: '4'
