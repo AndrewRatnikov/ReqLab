@@ -1,0 +1,10 @@
+{
+  "$comment": "Read by the AI Orchestrator from the original branch. `sizing`: a run that touches any of these paths (on top of built-in defaults: schema, migrations, auth, crypto, dependencies, build/deploy config) always runs the full pipeline; see size-run.py.",
+  "sizing": {
+    "max_files": 3,
+    "sensitive_paths": [
+      "backend/**",
+      "apps/web/src/composables/useFetchClient.ts"
+    ]
+  }
+}
